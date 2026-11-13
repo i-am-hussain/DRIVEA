@@ -6,6 +6,7 @@ import {
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Spinner } from "../components/ui/Spinner";
+import { ThemeToggle } from "../components/ui/ThemeToggle";
 import { shareApi, getFileIcon, formatBytes } from "../assets/api";
 
 const SharedFile = () => {
@@ -52,12 +53,12 @@ const SharedFile = () => {
     if (error || !data) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-canvas p-6">
-                <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-card">
-                    <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                <div className="w-full max-w-sm rounded-2xl border border-line bg-surface p-8 text-center shadow-card">
+                    <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-xl bg-danger-soft text-danger">
                         <AlertCircleIcon className="size-6" />
                     </div>
-                    <h1 className="text-lg font-semibold text-slate-900">Link unavailable</h1>
-                    <p className="mt-1.5 text-sm text-slate-500">{error}</p>
+                    <h1 className="text-lg font-semibold text-ink">Link unavailable</h1>
+                    <p className="mt-1.5 text-sm text-muted">{error}</p>
                     <Link to="/" className="mt-6 inline-block">
                         <Button variant="secondary">Go to Drivea</Button>
                     </Link>
@@ -70,17 +71,20 @@ const SharedFile = () => {
     const ownerName = data.owner?.name || "Unknown";
 
     return (
-        <div className="flex min-h-screen flex-col bg-canvas text-slate-800">
-            <header className="sticky top-0 z-20 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+        <div className="flex min-h-screen flex-col bg-canvas text-ink">
+            <header className="sticky top-0 z-20 border-b border-line/80 bg-surface/85 backdrop-blur-xl">
                 <div className="mx-auto flex h-16 w-full max-w-5xl items-center gap-3 px-4 sm:px-6">
                     <Link to="/" className="flex items-center gap-2.5">
                         <img src="/logo.svg" alt="" className="h-7 w-auto" />
-                        <span className="text-lg font-bold tracking-tight text-slate-900">Drivea</span>
+                        <span className="text-lg font-bold tracking-tight text-ink">Drivea</span>
                     </Link>
-                    <span className="ml-auto flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[11px] font-medium text-slate-500">
-                        <UserIcon className="size-3.5" />
-                        <span className="truncate">Shared by {ownerName}</span>
-                    </span>
+                    <div className="ml-auto flex items-center gap-2">
+                        <span className="flex max-w-[60vw] items-center gap-1.5 rounded-full border border-line bg-subtle px-3 py-1.5 text-[11px] font-medium text-muted sm:max-w-none">
+                            <UserIcon className="size-3.5 shrink-0" />
+                            <span className="truncate">Shared by {ownerName}</span>
+                        </span>
+                        <ThemeToggle />
+                    </div>
                 </div>
             </header>
 
@@ -88,21 +92,21 @@ const SharedFile = () => {
                 {isFolder ? (
                     <div>
                         <div className="mb-5 flex items-center gap-3.5">
-                            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+                            <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-accent ring-1 ring-brand-100">
                                 <FolderIcon className="size-6" />
                             </span>
                             <div className="min-w-0">
-                                <h1 className="truncate text-lg font-bold text-slate-900 sm:text-xl">
+                                <h1 className="truncate text-lg font-bold text-ink sm:text-xl">
                                     {data.folder?.name}
                                 </h1>
-                                <p className="mt-0.5 text-[13px] text-slate-500">
+                                <p className="mt-0.5 text-[13px] text-muted">
                                     {data.files?.length || 0} file{data.files?.length === 1 ? "" : "s"} in this shared folder
                                 </p>
                             </div>
                         </div>
 
                         {data.files?.length ? (
-                            <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
+                            <div className="overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
                                 {data.files.map((f, i) => (
                                     <a
                                         key={f.id}
@@ -110,11 +114,11 @@ const SharedFile = () => {
                                         download={f.name}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className={`group flex items-center gap-3 px-3 py-3 transition hover:bg-slate-50 sm:px-4 ${
-                                            i > 0 ? "border-t border-slate-100" : ""
+                                        className={`group flex items-center gap-3 px-3 py-3 transition hover:bg-subtle sm:px-4 ${
+                                            i > 0 ? "border-t border-line-soft" : ""
                                         }`}
                                     >
-                                        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-slate-50 ring-1 ring-slate-100">
+                                        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-subtle ring-1 ring-line-soft">
                                             {f.mime_type?.startsWith("image/") ? (
                                                 <img
                                                     src={f.url || f.blob_url}
@@ -126,17 +130,17 @@ const SharedFile = () => {
                                             )}
                                         </span>
                                         <div className="min-w-0 flex-1">
-                                            <p className="truncate text-sm font-medium text-slate-800">{f.name}</p>
-                                            <p className="text-[11px] text-slate-400">{formatBytes(f.size)}</p>
+                                            <p className="truncate text-sm font-medium text-ink">{f.name}</p>
+                                            <p className="text-[11px] text-faint">{formatBytes(f.size)}</p>
                                         </div>
-                                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition group-hover:bg-white group-hover:text-brand-600">
+                                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg text-faint transition group-hover:bg-surface group-hover:text-accent">
                                             <DownloadIcon className="size-4" />
                                         </span>
                                     </a>
                                 ))}
                             </div>
                         ) : (
-                            <div className="rounded-2xl border border-dashed border-slate-300 bg-white/70">
+                            <div className="rounded-2xl border border-dashed border-line-strong bg-surface/70">
                                 <EmptyState
                                     icon={FolderIcon}
                                     title="Folder is empty"
@@ -146,16 +150,16 @@ const SharedFile = () => {
                         )}
                     </div>
                 ) : data.file ? (
-                    <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
-                        <div className="flex flex-wrap items-center gap-3 border-b border-slate-100 px-4 py-3.5 sm:px-5">
-                            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 ring-1 ring-slate-100">
+                    <div className="overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
+                        <div className="flex flex-wrap items-center gap-3 border-b border-line-soft px-4 py-3.5 sm:px-5">
+                            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-subtle ring-1 ring-line-soft">
                                 {getFileIcon(data.file.mime_type, "size-5")}
                             </span>
                             <div className="min-w-0 flex-1">
-                                <h1 className="truncate text-sm font-semibold text-slate-900 sm:text-base">
+                                <h1 className="truncate text-sm font-semibold text-ink sm:text-base">
                                     {data.file.name}
                                 </h1>
-                                <p className="mt-0.5 text-[11px] text-slate-400">
+                                <p className="mt-0.5 text-[11px] text-faint">
                                     {formatBytes(data.file.size)}
                                 </p>
                             </div>
@@ -172,7 +176,7 @@ const SharedFile = () => {
                             </a>
                         </div>
 
-                        <div className="flex min-h-48 items-center justify-center bg-slate-50/60 p-3 sm:min-h-64 sm:p-5">
+                        <div className="flex min-h-48 items-center justify-center bg-subtle/60 p-3 sm:min-h-64 sm:p-5">
                             {data.file.mime_type?.startsWith("image/") ? (
                                 <img
                                     src={data.url}
@@ -186,21 +190,21 @@ const SharedFile = () => {
                             ) : data.file.mime_type === "application/pdf" ? (
                                 <iframe
                                     src={data.url}
-                                    className="h-[55vh] w-full rounded-xl border border-slate-200 bg-white"
+                                    className="h-[55vh] w-full rounded-xl border border-line bg-surface"
                                     title={data.file.name}
                                 />
                             ) : (
                                 <div className="flex flex-col items-center gap-3 py-10">
-                                    <div className="flex size-16 items-center justify-center rounded-2xl bg-white ring-1 ring-slate-200">
+                                    <div className="flex size-16 items-center justify-center rounded-2xl bg-surface ring-1 ring-line">
                                         {getFileIcon(data.file.mime_type, "size-8")}
                                     </div>
-                                    <p className="text-sm text-slate-500">Preview isn't available for this file type.</p>
+                                    <p className="text-sm text-muted">Preview isn't available for this file type.</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-dashed border-slate-300 bg-white/70">
+                    <div className="rounded-2xl border border-dashed border-line-strong bg-surface/70">
                         <EmptyState
                             icon={CloudIcon}
                             title="Nothing to show"
@@ -209,15 +213,15 @@ const SharedFile = () => {
                     </div>
                 )}
 
-                <p className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
+                <p className="mt-5 flex items-center justify-center gap-1.5 text-[11px] text-faint">
                     <ShieldCheckIcon className="size-3.5" />
                     Shared securely with a Drivea link
                 </p>
             </main>
 
-            <footer className="border-t border-slate-200/80 py-5 text-center text-xs text-slate-400">
+            <footer className="border-t border-line/80 py-5 text-center text-xs text-faint">
                 Powered by{" "}
-                <Link to="/" className="font-semibold text-brand-600 hover:text-brand-700">
+                <Link to="/" className="font-semibold text-accent hover:text-accent">
                     Drivea
                 </Link>
             </footer>

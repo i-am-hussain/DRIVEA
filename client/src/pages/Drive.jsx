@@ -68,18 +68,18 @@ function Breadcrumbs({ items }) {
     >
       <Link
         to="/"
-        className="flex shrink-0 items-center gap-1.5 rounded-lg px-1.5 py-1 font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+        className="flex shrink-0 items-center gap-1.5 rounded-lg px-1.5 py-1 font-semibold text-ink-soft transition hover:bg-subtle-strong hover:text-ink"
       >
-        <HardDriveIcon className="size-4 text-slate-400" />
+        <HardDriveIcon className="size-4 text-faint" />
         My Drive
       </Link>
       {items.map((b) => (
         <React.Fragment key={b.id}>
-          <ChevronRightIcon className="size-3.5 shrink-0 text-slate-300" />
+          <ChevronRightIcon className="size-3.5 shrink-0 text-line-strong" />
           <Link
             to={`/f/${b.id}`}
             title={b.name}
-            className="max-w-[160px] truncate rounded-lg px-1.5 py-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+            className="max-w-[160px] truncate rounded-lg px-1.5 py-1 text-muted transition hover:bg-subtle-strong hover:text-ink"
           >
             {b.name}
           </Link>
@@ -92,11 +92,11 @@ function Breadcrumbs({ items }) {
 function SectionHeading({ children, count }) {
   return (
     <div className="mb-3 flex items-center gap-2">
-      <h2 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-slate-500">
+      <h2 className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">
         {children}
       </h2>
       {typeof count === "number" && count > 0 && (
-        <span className="rounded-full bg-slate-200/70 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
+        <span className="rounded-full bg-track/70 px-2 py-0.5 text-[11px] font-semibold text-muted">
           {count}
         </span>
       )}
@@ -106,7 +106,7 @@ function SectionHeading({ children, count }) {
 
 function ViewToggle({ view, setView }) {
   return (
-    <div className="flex items-center gap-0.5 rounded-xl border border-slate-200 bg-white p-1">
+    <div className="flex items-center gap-0.5 rounded-xl border border-line bg-surface p-1">
       {[
         ["grid", LayoutGridIcon, "Grid view"],
         ["list", ListIcon, "List view"],
@@ -120,8 +120,8 @@ function ViewToggle({ view, setView }) {
           title={label}
           className={`flex size-7 items-center justify-center rounded-lg transition ${
             view === value
-              ? "bg-slate-100 text-slate-900"
-              : "text-slate-400 hover:bg-slate-50 hover:text-slate-700"
+              ? "bg-subtle-strong text-ink"
+              : "text-faint hover:bg-subtle hover:text-ink-soft"
           }`}
         >
           <Icon className="size-4" />
@@ -143,10 +143,10 @@ function FolderCard({ folder, onOpen, onShare, onRename, onMove, onDelete }) {
           onOpen(folder);
         }
       }}
-      className="group relative flex cursor-pointer flex-col rounded-2xl border border-slate-200/80 bg-white p-3.5 shadow-card transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
+      className="group relative flex cursor-pointer flex-col rounded-2xl border border-line/80 bg-surface p-3.5 shadow-card transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
     >
       <div className="flex items-start justify-between">
-        <span className="flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+        <span className="flex size-10 items-center justify-center rounded-xl bg-brand-50 text-accent">
           <FolderIcon className="size-5" />
         </span>
         <ItemDropdown
@@ -158,12 +158,12 @@ function FolderCard({ folder, onOpen, onShare, onRename, onMove, onDelete }) {
         />
       </div>
       <p
-        className="mt-3 truncate text-[13px] font-semibold text-slate-800 sm:text-sm"
+        className="mt-3 truncate text-[13px] font-semibold text-ink sm:text-sm"
         title={folder.name}
       >
         {folder.name}
       </p>
-      <p className="mt-0.5 text-[11px] text-slate-400">
+      <p className="mt-0.5 text-[11px] text-faint">
         {fmtDate(folder.created_at)}
       </p>
     </div>
@@ -191,9 +191,9 @@ function FileCard({
           onOpen(file);
         }
       }}
-      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-float focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/50"
     >
-      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border-b border-slate-100 bg-slate-50">
+      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border-b border-line-soft bg-subtle">
         {isImage ? (
           <img
             src={file.blob_url || `/api/files/${file.id}/download`}
@@ -205,11 +205,11 @@ function FileCard({
             }}
           />
         ) : (
-          <div className="flex size-12 items-center justify-center rounded-2xl bg-white ring-1 ring-slate-100 sm:size-14">
+          <div className="flex size-12 items-center justify-center rounded-2xl bg-surface ring-1 ring-line-soft sm:size-14">
             {getFileIcon(file.mime_type, "size-6 sm:size-7")}
           </div>
         )}
-        <div className="absolute right-1.5 top-1.5 rounded-lg bg-white/90 backdrop-blur">
+        <div className="absolute right-1.5 top-1.5 rounded-lg bg-surface/90 backdrop-blur">
           <ItemDropdown
             item={file}
             onPreview={onPreview}
@@ -222,12 +222,12 @@ function FileCard({
       </div>
       <div className="p-3">
         <p
-          className="truncate text-[13px] font-semibold text-slate-800 sm:text-sm"
+          className="truncate text-[13px] font-semibold text-ink sm:text-sm"
           title={file.name}
         >
           {file.name}
         </p>
-        <p className="mt-0.5 truncate text-[11px] text-slate-400">
+        <p className="mt-0.5 truncate text-[11px] text-faint">
           {formatBytes(file.size)} · {fmtDate(file.created_at)}
         </p>
       </div>
@@ -550,10 +550,10 @@ const Drive = () => {
             <div className="mb-1.5 flex items-center gap-1 text-[13px] lg:hidden">
               <Breadcrumbs items={breadcrumbs} />
             </div>
-            <h1 className="truncate text-xl font-bold text-slate-900 sm:text-2xl">
+            <h1 className="truncate text-xl font-bold text-ink sm:text-2xl">
               {title}
             </h1>
-            <p className="mt-1 text-[13px] text-slate-500">
+            <p className="mt-1 text-[13px] text-muted">
               {isFetching
                 ? "Loading…"
                 : hasItems
@@ -578,7 +578,7 @@ const Drive = () => {
                 <button
                   type="button"
                   title="Sort"
-                  className="flex h-9 items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 text-[13px] font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
+                  className="flex h-9 items-center gap-2 rounded-xl border border-line bg-surface px-3 text-[13px] font-medium text-ink-soft transition hover:bg-subtle hover:text-ink"
                 >
                   <SortAscIcon className="size-4" />
                   <span className="hidden md:inline">{currentSortLabel}</span>
@@ -604,13 +604,13 @@ const Drive = () => {
         {isDragActive && (
           <div className="pointer-events-none absolute inset-0 z-10 flex items-start justify-center rounded-3xl border-2 border-dashed border-brand-400 bg-brand-50/80 p-10 backdrop-blur-[2px]">
             <div className="text-center">
-              <span className="mx-auto mb-3 flex size-14 items-center justify-center rounded-2xl bg-white text-brand-600 shadow-float">
+              <span className="mx-auto mb-3 flex size-14 items-center justify-center rounded-2xl bg-surface text-accent shadow-float">
                 <CloudUploadIcon className="size-7" />
               </span>
-              <p className="text-base font-semibold text-brand-800">
+              <p className="text-base font-semibold text-accent">
                 Drop files to upload
               </p>
-              <p className="mt-1 text-sm text-brand-700/70">
+              <p className="mt-1 text-sm text-accent/70">
                 {currentFolder
                   ? `They'll be added to “${currentFolder.name}”`
                   : "They'll be added to My Drive"}
@@ -624,7 +624,7 @@ const Drive = () => {
             {Array.from({ length: 10 }).map((_, i) => (
               <div
                 key={i}
-                className="h-[132px] rounded-2xl border border-slate-200/80 bg-white p-3.5"
+                className="h-[132px] rounded-2xl border border-line/80 bg-surface p-3.5"
               >
                 <div className="skeleton size-10 rounded-xl" />
                 <div className="skeleton mt-4 h-3 w-4/5 rounded-full" />
@@ -633,7 +633,7 @@ const Drive = () => {
             ))}
           </div>
         ) : !hasItems ? (
-          <div className="rounded-3xl border border-dashed border-slate-300 bg-white/70 px-4 py-6 sm:px-10">
+          <div className="rounded-3xl border border-dashed border-line-strong bg-surface/70 px-4 py-6 sm:px-10">
             <EmptyState
               icon={CloudUploadIcon}
               title={search ? "No matching items" : "This folder is empty"}
@@ -685,22 +685,22 @@ const Drive = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
+                  <div className="overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
                     {folders.map((f, i) => (
                       <div
                         key={f.id}
                         onClick={() => navigate(`/f/${f.id}`)}
-                        className={`group flex cursor-pointer items-center gap-3 px-3 py-2.5 transition hover:bg-slate-50 sm:px-4 ${
-                          i > 0 ? "border-t border-slate-100" : ""
+                        className={`group flex cursor-pointer items-center gap-3 px-3 py-2.5 transition hover:bg-subtle sm:px-4 ${
+                          i > 0 ? "border-t border-line-soft" : ""
                         }`}
                       >
-                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-accent">
                           <FolderIcon className="size-4" />
                         </span>
-                        <p className="min-w-0 flex-1 truncate text-sm font-medium text-slate-800">
+                        <p className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
                           {f.name}
                         </p>
-                        <p className="hidden w-28 shrink-0 text-xs text-slate-400 sm:block">
+                        <p className="hidden w-28 shrink-0 text-xs text-faint sm:block">
                           {fmtDate(f.created_at)}
                         </p>
                         <ItemDropdown item={f} {...folderActions} />
@@ -726,8 +726,8 @@ const Drive = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
-                    <div className="hidden items-center gap-3 border-b border-slate-100 bg-slate-50/60 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-slate-400 sm:flex">
+                  <div className="overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
+                    <div className="hidden items-center gap-3 border-b border-line-soft bg-subtle/60 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-faint sm:flex">
                       <span className="flex-1">Name</span>
                       <span className="w-24 shrink-0">Size</span>
                       <span className="w-28 shrink-0">Modified</span>
@@ -737,25 +737,25 @@ const Drive = () => {
                       <div
                         key={f.id}
                         onClick={() => openPreview(f)}
-                        className={`group flex cursor-pointer items-center gap-3 px-3 py-2.5 transition hover:bg-slate-50 sm:px-4 ${
-                          i > 0 ? "border-t border-slate-100" : ""
+                        className={`group flex cursor-pointer items-center gap-3 px-3 py-2.5 transition hover:bg-subtle sm:px-4 ${
+                          i > 0 ? "border-t border-line-soft" : ""
                         }`}
                       >
-                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-slate-50 ring-1 ring-slate-100">
+                        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-subtle ring-1 ring-line-soft">
                           {getFileIcon(f.mime_type, "size-4")}
                         </span>
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-slate-800">
+                          <p className="truncate text-sm font-medium text-ink">
                             {f.name}
                           </p>
-                          <p className="text-[11px] text-slate-400 sm:hidden">
+                          <p className="text-[11px] text-faint sm:hidden">
                             {formatBytes(f.size)} · {fmtDate(f.created_at)}
                           </p>
                         </div>
-                        <p className="hidden w-24 shrink-0 text-xs text-slate-400 sm:block">
+                        <p className="hidden w-24 shrink-0 text-xs text-faint sm:block">
                           {formatBytes(f.size)}
                         </p>
-                        <p className="hidden w-28 shrink-0 text-xs text-slate-400 sm:block">
+                        <p className="hidden w-28 shrink-0 text-xs text-faint sm:block">
                           {fmtDate(f.created_at)}
                         </p>
                         <ItemDropdown item={f} {...fileActions} />
@@ -771,12 +771,12 @@ const Drive = () => {
 
       {/* Upload progress */}
       {isUploading && (
-        <div className="animate-slide-up fixed bottom-24 left-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-slate-200 bg-white p-4 shadow-overlay lg:bottom-6 lg:left-auto lg:right-6 lg:translate-x-0 lg:w-80">
+        <div className="animate-slide-up fixed bottom-24 left-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 rounded-2xl border border-line bg-surface p-4 shadow-overlay lg:bottom-6 lg:left-auto lg:right-6 lg:translate-x-0 lg:w-80">
           <div className="mb-2.5 flex items-center justify-between">
-            <span className="flex items-center gap-2 text-sm font-semibold text-slate-800">
+            <span className="flex items-center gap-2 text-sm font-semibold text-ink">
               <Spinner size="sm" /> Uploading…
             </span>
-            <span className="text-xs font-medium text-slate-400">
+            <span className="text-xs font-medium text-faint">
               {uploadProgress
                 ? `${Math.round((uploadProgress.done / Math.max(1, uploadProgress.total)) * 100)}%`
                 : ""}
@@ -791,7 +791,7 @@ const Drive = () => {
             }
           />
           {uploadProgress && (
-            <p className="mt-2 text-[11px] text-slate-400">
+            <p className="mt-2 text-[11px] text-faint">
               {formatBytes(uploadProgress.done)} of{" "}
               {formatBytes(uploadProgress.total)}
             </p>
@@ -859,9 +859,9 @@ const Drive = () => {
           </>
         }
       >
-        <p className="mb-3 text-sm text-slate-500">
+        <p className="mb-3 text-sm text-muted">
           Choose a destination for{" "}
-          <span className="font-medium text-slate-700">{moveTarget?.name}</span>
+          <span className="font-medium text-ink-soft">{moveTarget?.name}</span>
           .
         </p>
         <div className="-mx-1 max-h-72 space-y-1 overflow-y-auto px-1">
@@ -870,8 +870,8 @@ const Drive = () => {
             onClick={() => setMovingFolderId(null)}
             className={`flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm transition ${
               movingFolderId === null
-                ? "bg-brand-50 font-semibold text-brand-700"
-                : "text-slate-600 hover:bg-slate-100"
+                ? "bg-brand-50 font-semibold text-accent"
+                : "text-ink-soft hover:bg-subtle-strong"
             }`}
           >
             <HardDriveIcon className="size-4" /> My Drive (root)
@@ -883,11 +883,11 @@ const Drive = () => {
               onClick={() => setMovingFolderId(f.id)}
               className={`flex w-full items-center gap-2.5 truncate rounded-xl px-3 py-2.5 text-sm transition ${
                 movingFolderId === f.id
-                  ? "bg-brand-50 font-semibold text-brand-700"
-                  : "text-slate-600 hover:bg-slate-100"
+                  ? "bg-brand-50 font-semibold text-accent"
+                  : "text-ink-soft hover:bg-subtle-strong"
               }`}
             >
-              <FolderIcon className="size-4 shrink-0 text-brand-500" /> {f.name}
+              <FolderIcon className="size-4 shrink-0 text-accent" /> {f.name}
             </button>
           ))}
         </div>
@@ -904,21 +904,21 @@ const Drive = () => {
           </div>
         ) : shareLink ? (
           <div className="space-y-4">
-            <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-600 ring-1 ring-slate-100">
+            <div className="flex items-center gap-3 rounded-xl border border-line bg-subtle p-3">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface text-accent ring-1 ring-line-soft">
                 <Share2Icon className="size-5" />
               </div>
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-slate-800">
+                <p className="truncate text-sm font-semibold text-ink">
                   {shareTarget?.name}
                 </p>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-faint">
                   Anyone with the link can view and download
                 </p>
               </div>
             </div>
             <div className="flex gap-2">
-              <div className="min-w-0 flex-1 truncate rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs text-slate-600">
+              <div className="min-w-0 flex-1 truncate rounded-xl border border-line bg-surface px-3 py-2.5 text-xs text-ink-soft">
                 {`${window.location.origin}/s/${shareLink.token}`}
               </div>
               <Button
@@ -928,11 +928,11 @@ const Drive = () => {
                 Copy
               </Button>
             </div>
-            <div className="flex items-center justify-between text-xs text-slate-400">
+            <div className="flex items-center justify-between text-xs text-faint">
               <span>{shareLink.access_count || 0} views</span>
               <span>Link is active</span>
             </div>
-            <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
+            <div className="flex justify-end gap-2 border-t border-line-soft pt-4">
               <Button variant="ghost" onClick={() => setShareTarget(null)}>
                 Done
               </Button>
@@ -967,7 +967,7 @@ const Drive = () => {
         footer={
           previewItem && (
             <>
-              <span className="mr-auto text-xs text-slate-400">
+              <span className="mr-auto text-xs text-faint">
                 {formatBytes(previewItem.size || 0)}
               </span>
               <Button variant="ghost" onClick={() => setPreviewItem(null)}>
@@ -1008,7 +1008,7 @@ const Drive = () => {
             {previewItem?.mime_type === "application/pdf" && (
               <iframe
                 src={previewUrl}
-                className="h-[62vh] w-full rounded-xl border border-slate-100"
+                className="h-[62vh] w-full rounded-xl border border-line-soft"
                 title={previewItem.name}
               />
             )}
@@ -1016,10 +1016,10 @@ const Drive = () => {
               /^(image|video|audio\/)|^application\/pdf/,
             ) && (
               <div className="flex flex-col items-center gap-3 py-14 text-center">
-                <div className="flex size-16 items-center justify-center rounded-2xl bg-slate-50 ring-1 ring-slate-100">
+                <div className="flex size-16 items-center justify-center rounded-2xl bg-subtle ring-1 ring-line-soft">
                   {getFileIcon(previewItem?.mime_type, "size-8")}
                 </div>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-muted">
                   No inline preview available for this file type.
                 </p>
               </div>

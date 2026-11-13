@@ -73,22 +73,22 @@ const SharedWithMe = () => {
         >
           <Link
             to="/"
-            className="rounded-lg px-1.5 py-1 font-semibold text-slate-700 transition hover:bg-slate-100"
+            className="rounded-lg px-1.5 py-1 font-semibold text-ink-soft transition hover:bg-subtle-strong"
           >
             My Drive
           </Link>
-          <span className="text-slate-300">/</span>
-          <span className="px-1.5 py-1 font-medium text-slate-500">
+          <span className="text-line-strong">/</span>
+          <span className="px-1.5 py-1 font-medium text-muted">
             Shared links
           </span>
         </nav>
       }
     >
       <div className="mb-5">
-        <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">
+        <h1 className="text-xl font-bold text-ink sm:text-2xl">
           Shared links
         </h1>
-        <p className="mt-1 text-[13px] text-slate-500">
+        <p className="mt-1 text-[13px] text-muted">
           Every public link you've created. Revoke one at any time to turn off
           access.
         </p>
@@ -99,7 +99,7 @@ const SharedWithMe = () => {
           <Spinner size="lg" />
         </div>
       ) : links.length === 0 ? (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-white/70">
+        <div className="rounded-3xl border border-dashed border-line-strong bg-surface/70">
           <EmptyState
             icon={Link2Icon}
             title="No shared links yet"
@@ -118,14 +118,14 @@ const SharedWithMe = () => {
             return (
               <article
                 key={l.id}
-                className="flex flex-col rounded-2xl border border-slate-200/80 bg-white p-4 shadow-card transition hover:border-slate-300"
+                className="flex flex-col rounded-2xl border border-line/80 bg-surface p-4 shadow-card transition hover:border-line-strong"
               >
                 <div className="flex items-start gap-3">
                   <span
                     className={`flex size-10 shrink-0 items-center justify-center rounded-xl ring-1 ${
                       isFolder
-                        ? "bg-brand-50 text-brand-600 ring-brand-100"
-                        : "bg-slate-50 ring-slate-100"
+                        ? "bg-brand-50 text-accent ring-brand-100"
+                        : "bg-subtle ring-line-soft"
                     }`}
                   >
                     {isFolder ? (
@@ -136,12 +136,12 @@ const SharedWithMe = () => {
                   </span>
                   <div className="min-w-0 flex-1">
                     <p
-                      className="truncate text-sm font-semibold text-slate-800"
+                      className="truncate text-sm font-semibold text-ink"
                       title={l.resource?.name}
                     >
                       {l.resource?.name || "Unknown item"}
                     </p>
-                    <p className="mt-0.5 truncate text-[11px] text-slate-400">
+                    <p className="mt-0.5 truncate text-[11px] text-faint">
                       {isFolder ? "Folder" : formatBytes(l.resource?.size || 0)}{" "}
                       · shared {fmtDate(l.created_at)}
                     </p>
@@ -151,7 +151,7 @@ const SharedWithMe = () => {
                     onClick={() => setRevokeTarget(l)}
                     aria-label="Revoke link"
                     title="Revoke link"
-                    className="flex size-8 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-red-50 hover:text-red-600"
+                    className="flex size-8 shrink-0 items-center justify-center rounded-lg text-faint transition hover:bg-danger-soft hover:text-danger"
                   >
                     <Trash2Icon className="size-4" />
                   </button>
@@ -161,17 +161,17 @@ const SharedWithMe = () => {
                   type="button"
                   onClick={() => copyShareLink(l.token)}
                   title="Copy link"
-                  className="mt-3.5 flex w-full items-center gap-2 overflow-hidden rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-left transition hover:border-brand-200 hover:bg-brand-50/50"
+                  className="mt-3.5 flex w-full items-center gap-2 overflow-hidden rounded-xl border border-line bg-subtle/80 px-3 py-2 text-left transition hover:border-brand-200 hover:bg-brand-50/50"
                 >
-                  <Link2Icon className="size-3.5 shrink-0 text-slate-400" />
-                  <span className="min-w-0 flex-1 truncate text-[11px] text-slate-500">
+                  <Link2Icon className="size-3.5 shrink-0 text-faint" />
+                  <span className="min-w-0 flex-1 truncate text-[11px] text-muted">
                     /s/{l.token}
                   </span>
-                  <CopyIcon className="size-3.5 shrink-0 text-slate-400" />
+                  <CopyIcon className="size-3.5 shrink-0 text-faint" />
                 </button>
 
                 <div className="mt-3 flex items-center justify-between gap-2">
-                  <span className="flex items-center gap-1.5 text-[11px] font-medium text-emerald-600">
+                  <span className="flex items-center gap-1.5 text-[11px] font-medium text-success">
                     <ShieldCheckIcon className="size-3.5" /> Link active
                   </span>
                   <a href={`/s/${l.token}`} target="_blank" rel="noreferrer">

@@ -28,7 +28,7 @@ export function Dropdown({ trigger, children, align = "right", className = "", w
 
             {isOpen && (
                 <div
-                    className={`animate-fade-in absolute ${alignStyle} z-50 mt-2 max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-xl border border-slate-200/80 bg-white p-1.5 shadow-overlay ${width} ${className}`}
+                    className={`animate-fade-in absolute ${alignStyle} z-50 mt-2 max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-xl border border-line/80 bg-surface p-1.5 shadow-overlay ${width} ${className}`}
                     onClick={() => setIsOpen(false)}
                 >
                     {children}
@@ -46,10 +46,10 @@ export function DropdownItem({ children, icon: Icon, onClick, danger = false, di
             onClick={onClick}
             className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] transition disabled:cursor-not-allowed disabled:opacity-50 ${
                 danger
-                    ? "text-red-600 hover:bg-red-50"
+                    ? "text-danger hover:bg-danger-soft"
                     : selected
-                        ? "bg-slate-100 font-semibold text-slate-900"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                        ? "bg-subtle-strong font-semibold text-ink"
+                        : "text-ink-soft hover:bg-subtle-strong hover:text-ink"
             }`}
         >
             {Icon && <Icon className="size-4 shrink-0 opacity-80" />}

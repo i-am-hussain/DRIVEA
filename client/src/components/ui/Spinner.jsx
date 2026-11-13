@@ -1,6 +1,6 @@
 import { Loader2Icon } from "lucide-react";
 
-export function Spinner({ size = "md", className = "text-brand-500" }) {
+export function Spinner({ size = "md", className = "text-accent" }) {
     const sizes = {
         sm: "size-4",
         md: "size-6",

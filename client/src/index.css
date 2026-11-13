@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
+/* Class-based dark mode so the toggle can drive it */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Urbanist', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
@@ -18,9 +21,73 @@
 
   --color-canvas: #f6f7f9;
 
+  /* Semantic surfaces, lines and ink — these are what flip in dark mode */
+  --color-surface: #ffffff;
+  --color-subtle: #f8fafc;
+  --color-subtle-strong: #f1f5f9;
+  --color-line: #e2e8f0;
+  --color-line-soft: #f1f5f9;
+  --color-line-strong: #cbd5e1;
+  --color-track: #e2e8f0;
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-faint: #94a3b8;
+  --color-accent: #ea580c;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef2f2;
+  --color-danger-line: #fecaca;
+  --color-success: #059669;
+  --color-warning: #d97706;
+
   --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.03);
   --shadow-float: 0 4px 6px -1px rgb(15 23 42 / 0.06), 0 12px 24px -6px rgb(15 23 42 / 0.1);
   --shadow-overlay: 0 12px 32px -8px rgb(15 23 42 / 0.18), 0 4px 12px -4px rgb(15 23 42 / 0.08);
+}
+
+/* ------------------------------------------------------------- dark theme -- */
+
+.dark {
+  color-scheme: dark;
+
+  --color-canvas: #0b1220;
+  --color-surface: #111a2b;
+  --color-subtle: #162034;
+  --color-subtle-strong: #1c2740;
+  --color-line: #253349;
+  --color-line-soft: #1b2537;
+  --color-line-strong: #384961;
+  --color-track: #24324a;
+  --color-ink: #e9eef7;
+  --color-ink-soft: #c6d0df;
+  --color-muted: #93a1b8;
+  --color-faint: #74839c;
+  --color-accent: #fb923c;
+  --color-danger: #f87171;
+  --color-danger-soft: #2a151a;
+  --color-danger-line: #562730;
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+
+  /* Tinted brand surfaces need to recede, not glow, on a dark canvas */
+  --color-brand-50: #2b1809;
+  --color-brand-100: #3d200c;
+  --color-brand-200: #6b3611;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.35), 0 1px 3px rgb(0 0 0 / 0.25);
+  --shadow-float: 0 4px 10px -2px rgb(0 0 0 / 0.45), 0 14px 28px -8px rgb(0 0 0 / 0.5);
+  --shadow-overlay: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 6px 16px -6px rgb(0 0 0 / 0.4);
+}
+
+/* Shadows are baked into the utility, so re-declare them for the dark scope */
+.dark .shadow-card {
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 1px 3px rgb(0 0 0 / 0.25);
+}
+.dark .shadow-float {
+  box-shadow: 0 4px 10px -2px rgb(0 0 0 / 0.45), 0 14px 28px -8px rgb(0 0 0 / 0.5);
+}
+.dark .shadow-overlay {
+  box-shadow: 0 16px 40px -8px rgb(0 0 0 / 0.6), 0 6px 16px -6px rgb(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -33,7 +100,8 @@
   body {
     font-family: var(--font-sans);
     background-color: var(--color-canvas);
-    color: #0f172a;
+    color: var(--color-ink);
+    transition: background-color 0.2s ease, color 0.2s ease;
     min-height: 100dvh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -158,6 +226,21 @@
   );
   background-size: 400px 100%;
   animation: shimmer 1.4s linear infinite;
+}
+
+.dark .skeleton {
+  background-image: linear-gradient(
+    90deg,
+    rgba(37, 51, 73, 0.65) 0%,
+    rgba(46, 63, 89, 0.9) 40%,
+    rgba(37, 51, 73, 0.65) 80%
+  );
+}
+
+/* Media chrome sits on dark backdrops in both themes */
+.dark ::selection {
+  background-color: rgba(251, 146, 60, 0.35);
+  color: #fff7ed;
 }
 
 @media (prefers-reduced-motion: reduce) {

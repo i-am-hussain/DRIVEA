@@ -22,20 +22,20 @@ const fmtDate = (iso) =>
 function TrashRow({ type, item, busy, onRestore, onDelete }) {
     const isFolder = type === "folder";
     return (
-        <div className="flex items-center gap-3 px-3 py-3 transition hover:bg-slate-50 sm:px-4">
+        <div className="flex items-center gap-3 px-3 py-3 transition hover:bg-subtle sm:px-4">
             <span
                 className={`flex size-9 shrink-0 items-center justify-center rounded-xl ring-1 ${
-                    isFolder ? "bg-brand-50 text-brand-600 ring-brand-100" : "bg-slate-50 ring-slate-100"
+                    isFolder ? "bg-brand-50 text-accent ring-brand-100" : "bg-subtle ring-line-soft"
                 }`}
             >
                 {isFolder ? <FolderIcon className="size-[18px]" /> : getFileIcon(item.mime_type, "size-[18px]")}
             </span>
 
             <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-slate-800" title={item.name}>
+                <p className="truncate text-sm font-medium text-ink" title={item.name}>
                     {item.name}
                 </p>
-                <p className="mt-0.5 text-[11px] text-slate-400">
+                <p className="mt-0.5 text-[11px] text-faint">
                     {isFolder ? "Folder" : formatBytes(item.size)} · Deleted {fmtDate(item.trashed_at)}
                 </p>
             </div>
@@ -58,7 +58,7 @@ function TrashRow({ type, item, busy, onRestore, onDelete }) {
                     disabled={busy}
                     onClick={() => onDelete(type, item.id)}
                     title="Delete forever"
-                    className="px-2.5 text-red-600 hover:bg-red-50 hover:text-red-700"
+                    className="px-2.5 text-danger hover:bg-danger-soft hover:text-danger"
                 >
                     <span className="hidden sm:inline">Delete</span>
                 </Button>
@@ -142,12 +142,12 @@ const Trash = () => {
                 <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px]">
                     <Link
                         to="/"
-                        className="rounded-lg px-1.5 py-1 font-semibold text-slate-700 transition hover:bg-slate-100"
+                        className="rounded-lg px-1.5 py-1 font-semibold text-ink-soft transition hover:bg-subtle-strong"
                     >
                         My Drive
                     </Link>
-                    <span className="text-slate-300">/</span>
-                    <span className="px-1.5 py-1 font-medium text-slate-500">Trash</span>
+                    <span className="text-line-strong">/</span>
+                    <span className="px-1.5 py-1 font-medium text-muted">Trash</span>
                 </nav>
             }
             headerActions={
@@ -160,8 +160,8 @@ const Trash = () => {
         >
             <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
                 <div>
-                    <h1 className="text-xl font-bold text-slate-900 sm:text-2xl">Trash</h1>
-                    <p className="mt-1 text-[13px] text-slate-500">
+                    <h1 className="text-xl font-bold text-ink sm:text-2xl">Trash</h1>
+                    <p className="mt-1 text-[13px] text-muted">
                         {isEmpty
                             ? "Deleted items will appear here before being permanently removed."
                             : `${total} item${total === 1 ? "" : "s"} · restore anything before deleting it forever.`}
@@ -185,7 +185,7 @@ const Trash = () => {
                     <Spinner size="lg" />
                 </div>
             ) : isEmpty ? (
-                <div className="rounded-3xl border border-dashed border-slate-300 bg-white/70">
+                <div className="rounded-3xl border border-dashed border-line-strong bg-surface/70">
                     <EmptyState
                         icon={InboxIcon}
                         title="Trash is empty"
@@ -201,10 +201,10 @@ const Trash = () => {
                 <div className="space-y-7">
                     {folders.length > 0 && (
                         <section>
-                            <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-slate-500">
+                            <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">
                                 Folders
                             </h2>
-                            <div className="divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
+                            <div className="divide-y divide-line-soft overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
                                 {folders.map((f) => (
                                     <TrashRow
                                         key={`f-${f.id}`}
@@ -221,10 +221,10 @@ const Trash = () => {
 
                     {files.length > 0 && (
                         <section>
-                            <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-slate-500">
+                            <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">
                                 Files
                             </h2>
-                            <div className="divide-y divide-slate-100 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card">
+                            <div className="divide-y divide-line-soft overflow-hidden rounded-2xl border border-line/80 bg-surface shadow-card">
                                 {files.map((f) => (
                                     <TrashRow
                                         key={f.id}
@@ -239,7 +239,7 @@ const Trash = () => {
                         </section>
                     )}
 
-                    <p className="flex items-center gap-2 text-[12px] text-slate-400">
+                    <p className="flex items-center gap-2 text-[12px] text-faint">
                         <TrashIcon className="size-3.5" />
                         Items in trash still count toward your storage until permanently deleted.
                     </p>

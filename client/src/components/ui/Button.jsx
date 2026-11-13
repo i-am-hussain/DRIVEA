@@ -13,17 +13,17 @@ export function Button({
     ...props
 }) {
     const baseStyle =
-        "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 select-none active:scale-[0.985]";
+        "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50 select-none active:scale-[0.985]";
 
     const variants = {
         primary:
             "bg-brand-600 text-white shadow-card hover:bg-brand-700 focus-visible:ring-brand-500/70",
         secondary:
-            "border border-slate-200 bg-white text-slate-700 shadow-card hover:border-slate-300 hover:bg-slate-50 focus-visible:ring-slate-400/70",
+            "border border-line bg-surface text-ink-soft shadow-card hover:border-line-strong hover:bg-subtle focus-visible:ring-line-strong",
         subtle:
-            "bg-slate-100 text-slate-700 hover:bg-slate-200/80 focus-visible:ring-slate-400/70",
+            "bg-subtle-strong text-ink-soft hover:bg-track/80 focus-visible:ring-line-strong",
         ghost:
-            "bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-300",
+            "bg-transparent text-ink-soft hover:bg-subtle-strong hover:text-ink focus-visible:ring-line-strong",
         danger:
             "bg-red-600 text-white shadow-card hover:bg-red-700 focus-visible:ring-red-500/70",
     };

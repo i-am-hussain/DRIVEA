@@ -14,6 +14,7 @@ import {
   UserIcon,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { ThemeToggle } from "../components/ui/ThemeToggle";
 
 const FEATURES = [
   { Icon: HardDriveIcon, title: "1 GB free storage", text: "Keep documents, photos and media in one place." },
@@ -38,7 +39,7 @@ function BrandPanel() {
           <br />
           in one calm place.
         </h1>
-        <p className="mt-4 text-[15px] leading-relaxed text-slate-400">
+        <p className="mt-4 text-[15px] leading-relaxed text-faint">
           Store, organise and share your work with a drive that stays out of your way.
         </p>
 
@@ -50,14 +51,14 @@ function BrandPanel() {
               </span>
               <div>
                 <p className="text-sm font-semibold text-white">{title}</p>
-                <p className="mt-0.5 text-[13px] text-slate-400">{text}</p>
+                <p className="mt-0.5 text-[13px] text-faint">{text}</p>
               </div>
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="relative flex items-center gap-2 text-xs text-slate-500">
+      <p className="relative flex items-center gap-2 text-xs text-muted">
         <ShieldCheckIcon className="size-4" />
         Private by default. Only you decide what gets shared.
       </p>
@@ -70,15 +71,19 @@ function AuthPage({ title, subtitle, children, footer }) {
     <div className="min-h-screen bg-canvas lg:grid lg:grid-cols-[1.1fr_1fr]">
       <BrandPanel />
 
-      <main className="flex min-h-screen items-center justify-center px-4 py-10 sm:px-8">
+      <main className="relative flex min-h-screen items-center justify-center px-4 py-10 sm:px-8">
+        <div className="absolute right-4 top-4 sm:right-6 sm:top-6">
+          <ThemeToggle />
+        </div>
+
         <div className="w-full max-w-[420px]">
           <Link to="/" className="mb-8 flex items-center gap-2.5 lg:hidden">
             <img src="/logo.svg" alt="" className="h-8 w-auto" />
-            <span className="text-xl font-bold tracking-tight text-slate-900">Drivea</span>
+            <span className="text-xl font-bold tracking-tight text-ink">Drivea</span>
           </Link>
 
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-[28px]">{title}</h2>
-          <p className="mt-1.5 text-sm text-slate-500">{subtitle}</p>
+          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-[28px]">{title}</h2>
+          <p className="mt-1.5 text-sm text-muted">{subtitle}</p>
 
           <div className="mt-7">{children}</div>
 
@@ -92,14 +97,14 @@ function AuthPage({ title, subtitle, children, footer }) {
 function Field({ id, label, icon: Icon, ...props }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-[13px] font-semibold text-slate-700">
+      <label htmlFor={id} className="mb-1.5 block text-[13px] font-semibold text-ink-soft">
         {label}
       </label>
       <div className="relative">
-        <Icon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+        <Icon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-faint" />
         <input
           id={id}
-          className="h-11 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-3.5 text-sm text-slate-900 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10"
+          className="h-11 w-full rounded-xl border border-line bg-surface pl-10 pr-3.5 text-sm text-ink transition placeholder:text-faint hover:border-line-strong focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10"
           {...props}
         />
       </div>
@@ -166,13 +171,13 @@ function AuthForm({ mode }) {
 
       <div>
         <div className="mb-1.5 flex items-center justify-between">
-          <label htmlFor="auth-password" className="text-[13px] font-semibold text-slate-700">
+          <label htmlFor="auth-password" className="text-[13px] font-semibold text-ink-soft">
             Password
           </label>
-          {isRegister && <span className="text-[11px] text-slate-400">Minimum 6 characters</span>}
+          {isRegister && <span className="text-[11px] text-faint">Minimum 6 characters</span>}
         </div>
         <div className="relative">
-          <LockIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+          <LockIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-faint" />
           <input
             id="auth-password"
             type={showPassword ? "text" : "password"}
@@ -180,7 +185,7 @@ function AuthForm({ mode }) {
             minLength={6}
             autoComplete={isRegister ? "new-password" : "current-password"}
             placeholder={isRegister ? "Create a password" : "Enter your password"}
-            className="h-11 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-11 text-sm text-slate-900 transition placeholder:text-slate-400 hover:border-slate-300 focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10"
+            className="h-11 w-full rounded-xl border border-line bg-surface pl-10 pr-11 text-sm text-ink transition placeholder:text-faint hover:border-line-strong focus:border-brand-400 focus:outline-none focus:ring-4 focus:ring-brand-500/10"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -188,7 +193,7 @@ function AuthForm({ mode }) {
             type="button"
             onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className="absolute right-1.5 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+            className="absolute right-1.5 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-faint transition hover:bg-subtle-strong hover:text-ink-soft"
           >
             {showPassword ? <EyeOffIcon className="size-4" /> : <EyeIcon className="size-4" />}
           </button>
@@ -196,7 +201,7 @@ function AuthForm({ mode }) {
       </div>
 
       {error && (
-        <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-[13px] text-red-700">
+        <div className="flex items-start gap-2 rounded-xl border border-danger-line bg-danger-soft px-3 py-2.5 text-[13px] text-danger">
           <AlertCircleIcon className="mt-px size-4 shrink-0" />
           <span>{error}</span>
         </div>
@@ -205,24 +210,24 @@ function AuthForm({ mode }) {
       <button
         type="submit"
         disabled={busy}
-        className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand-600 text-sm font-semibold text-white shadow-card transition hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-1 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand-600 text-sm font-semibold text-white shadow-card transition hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas disabled:cursor-not-allowed disabled:opacity-60"
       >
         {busy && <LoaderCircleIcon className="size-4 animate-spin" aria-hidden="true" />}
         {isRegister ? "Create account" : "Sign in"}
       </button>
 
-      <p className="mt-1 text-center text-sm text-slate-500">
+      <p className="mt-1 text-center text-sm text-muted">
         {isRegister ? (
           <>
             Already have an account?{" "}
-            <Link to="/login" className="font-semibold text-brand-600 hover:text-brand-700">
+            <Link to="/login" className="font-semibold text-accent hover:text-accent">
               Sign in
             </Link>
           </>
         ) : (
           <>
             New to Drivea?{" "}
-            <Link to="/register" className="font-semibold text-brand-600 hover:text-brand-700">
+            <Link to="/register" className="font-semibold text-accent hover:text-accent">
               Create a free account
             </Link>
           </>
@@ -238,7 +243,7 @@ export default function Login() {
       title="Welcome back"
       subtitle="Sign in to pick up where you left off."
       footer={
-        <p className="mt-8 text-center text-[11px] leading-relaxed text-slate-400">
+        <p className="mt-8 text-center text-[11px] leading-relaxed text-faint">
           By continuing you agree to our Terms of Service and Privacy Policy.
         </p>
       }
@@ -255,7 +260,7 @@ export function Register() {
       title="Create your account"
       subtitle="Free forever for your first gigabyte."
       footer={
-        <p className="mt-8 text-center text-[11px] leading-relaxed text-slate-400">
+        <p className="mt-8 text-center text-[11px] leading-relaxed text-faint">
           Your files stay private until you choose to share them.
         </p>
       }

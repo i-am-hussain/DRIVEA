@@ -30,10 +30,10 @@ export function ConfirmDialog({
             }
         >
             <div className="flex items-start gap-3.5">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-danger-soft text-danger">
                     <AlertTriangleIcon className="size-5" />
                 </div>
-                <p className="min-w-0 pt-1 text-[13px] leading-relaxed text-slate-500">{message}</p>
+                <p className="min-w-0 pt-1 text-[13px] leading-relaxed text-muted">{message}</p>
             </div>
         </Modal>
     );

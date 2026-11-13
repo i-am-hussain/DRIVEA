@@ -10,7 +10,7 @@ export function ItemDropdown({ item, onPreview, onShare, onRename, onMove, onDel
                     <button
                         type="button"
                         aria-label={`Actions for ${item?.name || "item"}`}
-                        className="flex size-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100"
+                        className="flex size-8 items-center justify-center rounded-lg text-faint transition hover:bg-subtle-strong hover:text-ink-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-focus-within:opacity-100"
                     >
                         <MoreVerticalIcon className="size-4" />
                     </button>
@@ -30,7 +30,7 @@ export function ItemDropdown({ item, onPreview, onShare, onRename, onMove, onDel
                 <DropdownItem icon={FolderInputIcon} onClick={() => onMove(item)}>
                     Move to…
                 </DropdownItem>
-                <div className="my-1 h-px bg-slate-100" />
+                <div className="my-1 h-px bg-subtle-strong" />
                 <DropdownItem icon={Trash2Icon} danger onClick={() => onDelete(item)}>
                     Delete
                 </DropdownItem>

@@ -24,12 +24,12 @@ export function formatBytes(bytes, decimals = 2) {
 
 // Icon mapping configuration
 const ICON_RULES = [
-    { test: (m) => m.startsWith("image/"), Icon: ImageIcon, color: "text-emerald-500" },
+    { test: (m) => m.startsWith("image/"), Icon: ImageIcon, color: "text-success" },
     { test: (m) => m.startsWith("video/"), Icon: FilmIcon, color: "text-purple-500" },
     { test: (m) => m.startsWith("audio/"), Icon: MusicIcon, color: "text-pink-500" },
-    { test: (m) => m === "application/pdf", Icon: FileTextIcon, color: "text-red-500" },
-    { test: (m) => /(zip|tar|rar|compressed)/i.test(m), Icon: FileArchiveIcon, color: "text-amber-500" },
-    { test: (m) => /(excel|spreadsheet|csv)/i.test(m), Icon: FileSpreadsheetIcon, color: "text-emerald-500" },
+    { test: (m) => m === "application/pdf", Icon: FileTextIcon, color: "text-danger" },
+    { test: (m) => /(zip|tar|rar|compressed)/i.test(m), Icon: FileArchiveIcon, color: "text-warning" },
+    { test: (m) => /(excel|spreadsheet|csv)/i.test(m), Icon: FileSpreadsheetIcon, color: "text-success" },
     { test: (m) => /(json|javascript|html|css|xml)/i.test(m), Icon: FileCodeIcon, color: "text-cyan-500" },
 ];
 
