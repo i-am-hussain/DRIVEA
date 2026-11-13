@@ -17,6 +17,7 @@ export function ConfirmDialog({
             isOpen={isOpen}
             onClose={onClose}
             maxWidth="max-w-md"
+            title={title}
             footer={
                 <>
                     <Button variant="ghost" onClick={onClose} disabled={isLoading}>
@@ -32,10 +33,7 @@ export function ConfirmDialog({
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600">
                     <AlertTriangleIcon className="size-5" />
                 </div>
-                <div className="min-w-0 pt-0.5">
-                    <h3 className="text-[15px] font-semibold text-slate-900">{title}</h3>
-                    <p className="mt-1 text-[13px] leading-relaxed text-slate-500">{message}</p>
-                </div>
+                <p className="min-w-0 pt-1 text-[13px] leading-relaxed text-slate-500">{message}</p>
             </div>
         </Modal>
     );

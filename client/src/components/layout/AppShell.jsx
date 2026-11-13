@@ -6,7 +6,6 @@ import {
   SearchIcon,
   XCircleIcon,
 } from "lucide-react";
-import { useMemo } from "react";
 import { useAuth, UserButton } from "../../context/AuthContext";
 import { ProgressBar } from "../ui/ProgressBar";
 import { formatBytes } from "../../assets/api";
@@ -32,7 +31,7 @@ export const NAV_ITEMS = [
   },
 ];
 
-function StorageCard({ compact = false }) {
+function StorageCard() {
   const { user } = useAuth();
   const used = Number(user?.storage_used || 0);
   const limit = Number(user?.storage_limit || 0) || 1;
@@ -40,22 +39,14 @@ function StorageCard({ compact = false }) {
   const isFull = pct >= 90;
 
   return (
-    <div
-      className={
-        compact
-          ? "min-w-0 flex-1"
-          : "rounded-2xl border border-slate-200/80 bg-slate-50/80 p-3.5"
-      }
-    >
-      {!compact && (
-        <div className="mb-2.5 flex items-center justify-between">
-          <span className="flex items-center gap-2 text-[13px] font-semibold text-slate-700">
-            <HardDriveIcon className="size-4 text-slate-400" />
-            Storage
-          </span>
-          <span className="text-[11px] font-medium text-slate-400">{pct}%</span>
-        </div>
-      )}
+    <div className="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-3.5">
+      <div className="mb-2.5 flex items-center justify-between">
+        <span className="flex items-center gap-2 text-[13px] font-semibold text-slate-700">
+          <HardDriveIcon className="size-4 text-slate-400" />
+          Storage
+        </span>
+        <span className="text-[11px] font-medium text-slate-400">{pct}%</span>
+      </div>
       <ProgressBar
         progress={pct}
         size="sm"
@@ -109,11 +100,6 @@ export function AppShell({
 }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
-
-  const activeItem = useMemo(
-    () => NAV_ITEMS.find((item) => item.isActive(pathname)),
-    [pathname],
-  );
 
   return (
     <div className="min-h-screen bg-canvas text-slate-800">
@@ -179,48 +165,42 @@ export function AppShell({
       {/* ------------------------------------------------------- main */}
       <div className="flex min-h-screen flex-col lg:pl-[272px]">
         <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-[1500px] flex-col gap-2.5 px-4 pb-3 pt-3 sm:px-6 lg:px-8">
-            {/* Mobile brand row */}
-            <div className="flex items-center gap-2 lg:hidden">
+          <div className="mx-auto flex max-w-[1500px] flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 sm:px-6 lg:px-8">
+            <div className="lg:hidden">
               <Logo compact />
-              <div className="ml-auto flex items-center gap-1.5">
-                {headerActions}
-                <UserButton />
-              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              {/* Desktop page context */}
-              <div className="hidden min-w-0 flex-1 items-center lg:flex">
-                {breadcrumbs}
+            {/* Page context (desktop) */}
+            <div className="hidden min-w-0 flex-1 items-center lg:flex">{breadcrumbs}</div>
+
+            {onSearchChange && (
+              <div className="relative order-last w-full min-w-0 lg:order-none lg:w-[360px] lg:shrink-0">
+                <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="search"
+                  value={searchValue}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  placeholder={searchPlaceholder}
+                  aria-label="Search files"
+                  className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 text-sm text-slate-800 transition placeholder:text-slate-400 focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/10"
+                />
+                {searchValue && (
+                  <button
+                    type="button"
+                    onClick={() => onSearchChange("")}
+                    aria-label="Clear search"
+                    className="absolute right-1.5 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-200/70 hover:text-slate-700"
+                  >
+                    <XCircleIcon className="size-4" />
+                  </button>
+                )}
               </div>
+            )}
 
-              {onSearchChange && (
-                <div className="relative w-full min-w-0 lg:max-w-md">
-                  <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-                  <input
-                    type="search"
-                    value={searchValue}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    placeholder={searchPlaceholder}
-                    aria-label="Search files"
-                    className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50/80 pl-10 pr-9 text-sm text-slate-800 placeholder:text-slate-400 transition focus:border-brand-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/10"
-                  />
-                  {searchValue && (
-                    <button
-                      type="button"
-                      onClick={() => onSearchChange("")}
-                      aria-label="Clear search"
-                      className="absolute right-1.5 top-1/2 flex size-7 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-200/70 hover:text-slate-700"
-                    >
-                      <XCircleIcon className="size-4" />
-                    </button>
-                  )}
-                </div>
-              )}
-
-              <div className="ml-auto hidden items-center gap-2 lg:flex">
-                {headerActions}
+            <div className="ml-auto flex items-center gap-2">
+              {headerActions}
+              <div className="lg:hidden">
+                <UserButton />
               </div>
             </div>
           </div>
