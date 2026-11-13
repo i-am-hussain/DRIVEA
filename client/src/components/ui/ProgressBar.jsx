@@ -1,10 +1,20 @@
-import React from "react";
+export function ProgressBar({ progress = 0, className = "", color = "bg-brand-500", size = "md" }) {
+    const heights = {
+        xs: "h-1",
+        sm: "h-1.5",
+        md: "h-2",
+    };
 
-export function ProgressBar({ progress = 0, className = "", color = "bg-orange-600" }) {
     return (
-        <div className={`w-full bg-slate-200 rounded-full h-2 overflow-hidden ${className}`}>
+        <div
+            role="progressbar"
+            aria-valuenow={Math.round(Math.min(100, Math.max(0, progress)))}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            className={`w-full overflow-hidden rounded-full bg-slate-200/80 ${heights[size] || heights.md} ${className}`}
+        >
             <div
-                className={`h-full ${color} transition-all duration-300 rounded-full`}
+                className={`h-full rounded-full transition-[width] duration-500 ease-out ${color}`}
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
             />
         </div>

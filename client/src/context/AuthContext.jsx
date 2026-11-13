@@ -5,6 +5,7 @@ import {
   useState,
   useCallback,
 } from "react";
+import { LogOutIcon } from "lucide-react";
 import { authApi } from "../assets/api";
 import { getAuthHeaders, setToken, getToken } from "../lib/auth-token";
 
@@ -144,29 +145,40 @@ export function UserButton({ afterSignOutUrl, className, ...props }) {
           e.stopPropagation();
           setOpen((o) => !o);
         }}
-        className="flex items-center justify-center rounded-full bg-indigo-600 text-white text-sm font-semibold w-9 h-9 hover:bg-indigo-500 focus:outline-none"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-[13px] font-bold text-white ring-2 ring-white transition hover:ring-brand-100 focus:outline-none focus-visible:ring-brand-300"
         title={user?.email || user?.name || "Account"}
       >
         {initials || "U"}
       </button>
       {open && (
         <div
-          className="absolute right-0 mt-2 w-56 rounded-xl border border-slate-200 bg-white shadow-lg z-50 p-3"
+          role="menu"
+          className="animate-slide-up absolute right-0 z-50 mt-2 w-60 rounded-xl border border-slate-200/80 bg-white p-1.5 shadow-overlay"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="mb-2">
-            <p className="text-sm font-medium text-slate-900 truncate">
-              {user?.name || "User"}
-            </p>
-            {user?.email && (
-              <p className="text-xs text-slate-500 truncate">{user.email}</p>
-            )}
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-2">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-50 text-[12px] font-bold text-brand-700">
+              {initials || "U"}
+            </span>
+            <div className="min-w-0">
+              <p className="truncate text-[13px] font-semibold text-slate-900">
+                {user?.name || "User"}
+              </p>
+              {user?.email && (
+                <p className="truncate text-[11px] text-slate-500">{user.email}</p>
+              )}
+            </div>
           </div>
+          <div className="my-1 h-px bg-slate-100" />
           <button
             type="button"
+            role="menuitem"
             onClick={() => logout()}
-            className="w-full rounded-lg border border-slate-200 bg-slate-50 text-sm text-slate-700 px-3 py-2 hover:bg-slate-100"
+            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] font-medium text-slate-600 transition hover:bg-red-50 hover:text-red-600"
           >
+            <LogOutIcon className="size-4" />
             Log out
           </button>
         </div>

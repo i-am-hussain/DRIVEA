@@ -1,6 +1,6 @@
 import { Modal } from "./Modal";
 import { Button } from "./Button";
-import { AlertCircleIcon } from "lucide-react";
+import { AlertTriangleIcon } from "lucide-react";
 
 export function ConfirmDialog({
     isOpen,
@@ -13,19 +13,29 @@ export function ConfirmDialog({
     isLoading = false,
 }) {
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title={title}>                <div className="flex items-center gap-3 mb-5">
-                <AlertCircleIcon className="size-7 text-red-600 bg-red-50 p-1.5 rounded-full shrink-0" />
-                <div>
-                    <p className="text-sm text-slate-600 leading-relaxed">{message}</p>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+            maxWidth="max-w-md"
+            footer={
+                <>
+                    <Button variant="ghost" onClick={onClose} disabled={isLoading}>
+                        Cancel
+                    </Button>
+                    <Button variant={confirmVariant} onClick={onConfirm} isLoading={isLoading}>
+                        {confirmText}
+                    </Button>
+                </>
+            }
+        >
+            <div className="flex items-start gap-3.5">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600">
+                    <AlertTriangleIcon className="size-5" />
                 </div>
-            </div>
-            <div className="flex items-center justify-end gap-2 sm:gap-3 pt-4 border-t border-slate-200">
-                <Button variant="ghost" onClick={onClose} disabled={isLoading}>
-                    Cancel
-                </Button>
-                <Button variant={confirmVariant} onClick={onConfirm} isLoading={isLoading}>
-                    {confirmText}
-                </Button>
+                <div className="min-w-0 pt-0.5">
+                    <h3 className="text-[15px] font-semibold text-slate-900">{title}</h3>
+                    <p className="mt-1 text-[13px] leading-relaxed text-slate-500">{message}</p>
+                </div>
             </div>
         </Modal>
     );

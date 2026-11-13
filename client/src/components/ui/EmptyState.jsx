@@ -7,13 +7,15 @@ export function EmptyState({
     action,
 }) {
     return (
-        <div className="flex flex-col items-center justify-center py-12 sm:py-16 px-3 text-center">
-            <div className="size-14 sm:size-16 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center mb-3 sm:mb-4 text-slate-500">
-                <Icon className="size-7 sm:size-8" />
+        <div className="flex flex-col items-center justify-center px-4 py-14 text-center sm:py-20">
+            <div className="mb-5 flex size-16 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 ring-1 ring-brand-100">
+                <Icon className="size-7" />
             </div>
-            <h3 className="text-base font-medium text-slate-900 mb-1">{title}</h3>
-            <p className="text-sm text-slate-500 max-w-sm mb-5">{description}</p>
-            {action && <div>{action}</div>}
+            <h3 className="text-base font-semibold text-slate-900 sm:text-lg">{title}</h3>
+            <p className="mt-1.5 max-w-sm text-[13px] leading-relaxed text-slate-500 sm:text-sm">
+                {description}
+            </p>
+            {action && <div className="mt-6">{action}</div>}
         </div>
     );
 }
